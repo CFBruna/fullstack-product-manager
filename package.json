@@ -13,7 +13,7 @@
   "lint-staged": {
     "backend/**/*.{ts,js,json}": [
       "npm run lint --prefix backend",
-      "npm test --prefix backend"
+      "npm test --prefix backend -- --findRelatedTests"
     ],
     "frontend/**/*.{ts,js,json,tsx,jsx}": [
       "npm run lint --prefix frontend"

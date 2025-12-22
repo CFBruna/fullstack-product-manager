@@ -61,7 +61,8 @@ export class ProductController {
                 throw new AppError('Invalid ID', 400);
             }
 
-            const product = await this.productService.updateProduct(id, req.body);
+            const validatedData = productSchema.partial().parse(req.body);
+            const product = await this.productService.updateProduct(id, validatedData);
             res.status(200).json(product);
         } catch (error) {
             next(error);
