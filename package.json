@@ -1,0 +1,22 @@
+{
+  "name": "fullstack-product-manager",
+  "version": "1.0.0",
+  "description": "Monorepo Root",
+  "private": true,
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0"
+  },
+  "lint-staged": {
+    "backend/**/*.{ts,js,json}": [
+      "npm run lint --prefix backend",
+      "npm test --prefix backend"
+    ],
+    "frontend/**/*.{ts,js,json,tsx,jsx}": [
+      "npm run lint --prefix frontend"
+    ]
+  }
+}
