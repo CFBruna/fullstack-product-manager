@@ -17,7 +17,10 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// SWAGGER: Aceita tanto a rota local quanto a rota com prefixo da Azure
+app.use(['/api-docs', '/api/api-docs'], swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use('/api', routes);
 app.use(routes);
 
 import { errorHandler } from './middlewares/errorHandler';
