@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  fullstack_db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: products_db
+    volumes:
+      - fullstack_db_data:/var/lib/mysql
+    networks:
+      - internal_net
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  fullstack_backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      fullstack_db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql://root:${DB_ROOT_PASSWORD}@fullstack_db:3306/products_db
+      PORT: 3001
+      # Add other env vars here if needed
+    networks:
+      - internal_net
+      - gateway_net
+
+  fullstack_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
+    restart: always
+    networks:
+      - gateway_net
+
+volumes:
+  fullstack_db_data:
+
+networks:
+  gateway_net:
+    external: true
+  internal_net:
+    driver: bridge
