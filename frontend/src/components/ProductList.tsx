@@ -120,6 +120,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                     <button
                                         onClick={() => onEdit(product)}
                                         className="p-2 text-indigo-600 bg-indigo-50 rounded-lg"
+                                        aria-label="Editar produto"
                                     >
                                         <Pencil size={16} />
                                     </button>
@@ -127,7 +128,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                 <button
                                     onClick={() => onView(product)}
                                     className="p-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-50 hover:text-blue-600"
-                                    aria-label="Ver detalhes"
+                                    aria-label="Ver detalhes do produto"
                                 >
                                     <Eye size={16} />
                                 </button>
@@ -135,6 +136,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                     <button
                                         onClick={() => onDelete(product.id)}
                                         className="p-2 text-red-600 bg-red-50 rounded-lg"
+                                        aria-label="Excluir produto"
                                     >
                                         <Trash2 size={16} />
                                     </button>

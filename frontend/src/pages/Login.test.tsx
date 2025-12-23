@@ -117,4 +117,21 @@ describe('Login Page', () => {
 
         consoleSpy.mockRestore();
     });
+
+    it('fills form automatically when clicking hint card', () => {
+        render(
+            <MemoryRouter>
+                <Login onLoginSuccess={mockOnLoginSuccess} />
+            </MemoryRouter>
+        );
+
+        const hintLink = screen.getByText(/Clique aqui para preencher automaticamente/i);
+        fireEvent.click(hintLink);
+
+        const emailInput = screen.getByLabelText(/Email/i) as HTMLInputElement;
+        const passwordInput = screen.getByLabelText(/Senha/i) as HTMLInputElement;
+
+        expect(emailInput.value).toBe('admin@teste.com');
+        expect(passwordInput.value).toBe('123456');
+    });
 });

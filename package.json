@@ -13,7 +13,7 @@
     "test": "npm run test:backend && npm run test:frontend",
     "test:backend": "npm test --prefix backend",
     "test:frontend": "npm test --prefix frontend -- --run",
-    "test:coverage": "npm run test:backend -- --coverage && npm run test:frontend -- --coverage --run",
+    "test:coverage": "npm run test:backend -- --coverage && npm run test:frontend -- --coverage",
     "docker:up": "docker-compose up --build",
     "docker:down": "docker-compose down",
     "prepare": "husky"
