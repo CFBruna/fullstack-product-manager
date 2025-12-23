@@ -99,7 +99,13 @@ We utilize a **Hybrid Workflow** for the best Developer Experience (DX):
 *   **Infrastructure (MySQL):** Runs in Docker (Isolated & Consistent).
 *   **Applications (Front/Back):** Run on Host (Faster Hot-Reload & Debugging).
 
-#### Step 1: Start Infrastructure
+#### Step 1: Clone Repository
+```bash
+git clone https://github.com/CFBruna/fullstack-product-manager.git
+cd fullstack-product-manager
+```
+
+#### Step 2: Start Infrastructure
 Start the Database services using Docker:
 ```bash
 docker compose up -d
@@ -108,20 +114,23 @@ docker compose up -d
 > *   **MySQL Database:** Port 3306
 > *   **Adminer (DB GUI):** [http://localhost:8080](http://localhost:8080) (System: MySQL, Server: db, User: root, Pass: root)
 
-#### Step 2: Start Applications
-In a new terminal, setup environment and start the applications:
+#### Step 3: Setup Application
+In a new terminal, use the following commands to setup the environment and database:
 
 ```bash
-# 1. Install Dependencies (Root)
+# 1. Install Dependencies
 npm install
 
-# 2. Setup Environment Variables (Crucial!)
+# 2. Setup Environment Variables
 cp backend/.env.example backend/.env
 
-# 3. Setup Database (Apply Schema & Seeds)
-cd backend && npx prisma migrate dev && npx prisma db seed && cd ..
+# 3. Setup Database (Run one by one)
+cd backend
+npx prisma migrate dev
+npx prisma db seed
+cd ..
 
-# 4. Run Backend & Frontend concurrently
+# 4. Start Applications
 npm run dev
 ```
 > **Access Points:**
