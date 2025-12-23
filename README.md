@@ -102,7 +102,7 @@ We utilize a **Hybrid Workflow** for the best Developer Experience (DX):
 #### Step 1: Start Infrastructure
 Start the Database services using Docker:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 > **Services Started:**
 > *   **MySQL Database:** Port 3306
@@ -118,7 +118,10 @@ npm install
 # 2. Setup Environment Variables (Crucial!)
 cp backend/.env.example backend/.env
 
-# 3. Run Backend & Frontend concurrently
+# 3. Setup Database (Apply Schema & Seeds)
+cd backend && npx prisma migrate dev && npx prisma db seed && cd ..
+
+# 4. Run Backend & Frontend concurrently
 npm run dev
 ```
 > **Access Points:**
