@@ -9,4 +9,12 @@ module.exports = {
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
     },
+    collectCoverageFrom: ['src/**/*.ts'],
+    coverageDirectory: 'coverage',
+    coveragePathIgnorePatterns: [
+        '/node_modules/',
+        '/src/repositories/',
+        '/src/server.ts',
+        '/src/routes.ts'
+    ],
 };
