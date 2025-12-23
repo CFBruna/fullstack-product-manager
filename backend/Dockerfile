@@ -1,13 +1,16 @@
 # Stage 1: Build
-FROM node:20-alpine AS build
+FROM node:20-slim AS build
 
 WORKDIR /app
+
+# Install OpenSSL for Prisma generation
+RUN apt-get update -y && apt-get install -y openssl
 
 # Copy package files
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies (including devDependencies for TypeScript build)
+# Install dependencies
 RUN npm ci
 
 # Copy source code
@@ -20,7 +23,10 @@ RUN npx prisma generate
 RUN npm run build
 
 # Stage 2: Production
-FROM node:20-alpine AS production
+FROM node:20-slim AS production
+
+# Install OpenSSL for Prisma runtime
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -34,7 +40,7 @@ RUN npm ci --only=production
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
 
-# Generate Prisma Client in production
+# Generate Prisma Client in production environment to ensure correct binary
 RUN npx prisma generate
 
 EXPOSE 3001
