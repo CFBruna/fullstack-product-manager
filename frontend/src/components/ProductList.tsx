@@ -7,9 +7,10 @@ interface ProductListProps {
     onEdit: (product: Product) => void;
     onDelete: (id: number) => void;
     onView: (product: Product) => void;
+    isAuthenticated: boolean;
 }
 
-export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete, onView }) => {
+export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete, onView, isAuthenticated }) => {
     if (products.length === 0) {
         return (
             <div className="bg-white rounded-xl shadow-sm p-12 text-center border border-gray-100">
@@ -63,14 +64,16 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button
-                                        onClick={() => onEdit(product)}
-                                        className="text-indigo-600 hover:text-indigo-900 p-2 hover:bg-indigo-50 rounded-full transition-colors mr-1"
-                                        title="Editar"
-                                        aria-label="Editar produto"
-                                    >
-                                        <Pencil size={18} />
-                                    </button>
+                                    {isAuthenticated && (
+                                        <button
+                                            onClick={() => onEdit(product)}
+                                            className="text-indigo-600 hover:text-indigo-900 p-2 hover:bg-indigo-50 rounded-full transition-colors mr-1"
+                                            title="Editar"
+                                            aria-label="Editar produto"
+                                        >
+                                            <Pencil size={18} />
+                                        </button>
+                                    )}
                                     <button
                                         onClick={() => onView(product)}
                                         className="text-gray-500 hover:text-blue-600 p-2 hover:bg-blue-50 rounded-full transition-colors mr-1"
@@ -79,14 +82,16 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                     >
                                         <Eye size={18} />
                                     </button>
-                                    <button
-                                        onClick={() => onDelete(product.id)}
-                                        className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-full transition-colors"
-                                        title="Excluir"
-                                        aria-label="Excluir produto"
-                                    >
-                                        <Trash2 size={18} />
-                                    </button>
+                                    {isAuthenticated && (
+                                        <button
+                                            onClick={() => onDelete(product.id)}
+                                            className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-full transition-colors"
+                                            title="Excluir"
+                                            aria-label="Excluir produto"
+                                        >
+                                            <Trash2 size={18} />
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
@@ -111,12 +116,14 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                 Estoque: {product.stock}
                             </span>
                             <div className="flex space-x-2">
-                                <button
-                                    onClick={() => onEdit(product)}
-                                    className="p-2 text-indigo-600 bg-indigo-50 rounded-lg"
-                                >
-                                    <Pencil size={16} />
-                                </button>
+                                {isAuthenticated && (
+                                    <button
+                                        onClick={() => onEdit(product)}
+                                        className="p-2 text-indigo-600 bg-indigo-50 rounded-lg"
+                                    >
+                                        <Pencil size={16} />
+                                    </button>
+                                )}
                                 <button
                                     onClick={() => onView(product)}
                                     className="p-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-50 hover:text-blue-600"
@@ -124,12 +131,14 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDe
                                 >
                                     <Eye size={16} />
                                 </button>
-                                <button
-                                    onClick={() => onDelete(product.id)}
-                                    className="p-2 text-red-600 bg-red-50 rounded-lg"
-                                >
-                                    <Trash2 size={16} />
-                                </button>
+                                {isAuthenticated && (
+                                    <button
+                                        onClick={() => onDelete(product.id)}
+                                        className="p-2 text-red-600 bg-red-50 rounded-lg"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
