@@ -12,6 +12,10 @@ const options = {
             {
                 url: 'http://localhost:3001',
                 description: 'Local server'
+            },
+            {
+                url: 'https://product-manager.brunadev.com/api',
+                description: 'Production server'
             }
         ],
         components: {
@@ -25,7 +29,7 @@ const options = {
         },
         security: []
     },
-    apis: ['./src/routes.ts']
+    apis: ['./src/routes.ts', './dist/routes.js']
 };
 
 export const swaggerSpec = swaggerIds(options);
